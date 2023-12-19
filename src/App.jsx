@@ -1,43 +1,50 @@
 import React, { useState } from "react";
-
 import Card from "./components/Card";
+import Navbar from "./components/Navbar";
 
 export const App = () => {
   const data = [
     {
-      name: "John Doe",
-      profession: "Engineer",
       image: "https://picsum.photos/200/300?random=1",
-      friends: false,
+      name: "Dil Cheez Kariye",
+      artist: "Saurabh",
+      added: false,
     },
     {
-      name: "Jane Smith",
-      profession: "Doctor",
       image: "https://picsum.photos/200/300?random=2",
-      friends: false,
+      name: "Tere Bina Jeena",
+      artist: "Zohair",
+      added: false,
     },
     {
-      name: "Bob Johnson",
-      profession: "Teacher",
       image: "https://picsum.photos/200/300?random=3",
-      friends: false,
+      name: "Tum Hi Ho",
+      artist: "Pooja",
+      added: false,
     },
     {
-      name: "Alice Brown",
-      profession: "Artist",
       image: "https://picsum.photos/200/300?random=4",
-      friends: false,
+      name: " Pal Pal Dil Ke Paas",
+      artist: "Mahesh",
+      added: false,
+    },
+    {
+      image: "https://picsum.photos/200/300?random=5",
+      name: "Tum Mile Dil ",
+      artist: "Arthi",
+      added: false,
     },
   ];
-  const [realDtata, setRealData] = useState(data);
+  const [songData, setSongData] = useState(data);
 
-  const handleFriendButton = (relIndex) => {
-    setRealData((previous) => {
-      return previous.map((item, index) => {
-        if (index === relIndex) {
+  const handleClick = (dindex) => {
+    setSongData((prev) => {
+      return prev.map((item, index) => {
+        if (index === dindex) {
           return {
             ...item,
-            friends: !item.friends,
+            added: !item.added,
+
           };
         }
         return item;
@@ -47,15 +54,18 @@ export const App = () => {
 
   return (
     <>
-      <div className="w-full h-screen bg-zinc-300 flex gap-4 items-center justify-center">
-        {realDtata.map((item, index) => (
-          <Card
-            key={index}
-            index={index}
-            value={item}
-            handleClick={handleFriendButton}
-          />
-        ))}
+      <Navbar songData ={songData}/>
+      <div className=" flex gap-8 flex-wrap">
+        {songData.map((obj, index) => {
+          return (
+            <Card
+              key={index}
+              index={index}
+              obj={obj}
+              handleClick={handleClick}
+            />
+          );
+        })}
       </div>
     </>
   );

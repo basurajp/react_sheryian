@@ -1,73 +1,30 @@
 import React, { useState } from "react";
-import Card from "./components/Card";
-import Navbar from "./components/Navbar";
+import Cards from "./components/Cards";
+import Form from "./components/Form";
 
 export const App = () => {
-  const data = [
-    {
-      image: "https://picsum.photos/200/300?random=1",
-      name: "Dil Cheez Kariye",
-      artist: "Saurabh",
-      added: false,
-    },
-    {
-      image: "https://picsum.photos/200/300?random=2",
-      name: "Tere Bina Jeena",
-      artist: "Zohair",
-      added: false,
-    },
-    {
-      image: "https://picsum.photos/200/300?random=3",
-      name: "Tum Hi Ho",
-      artist: "Pooja",
-      added: false,
-    },
-    {
-      image: "https://picsum.photos/200/300?random=4",
-      name: " Pal Pal Dil Ke Paas",
-      artist: "Mahesh",
-      added: false,
-    },
-    {
-      image: "https://picsum.photos/200/300?random=5",
-      name: "Tum Mile Dil ",
-      artist: "Arthi",
-      added: false,
-    },
-  ];
-  const [songData, setSongData] = useState(data);
+const [users , setusers]=useState([])
 
-  const handleClick = (dindex) => {
-    setSongData((prev) => {
-      return prev.map((item, index) => {
-        if (index === dindex) {
-          return {
-            ...item,
-            added: !item.added,
 
-          };
-        }
-        return item;
-      });
-    });
-  };
+
+const handleFormSubmit =(data)=>{
+  setusers([...users , data])
+}
+
+const handleRemove = (id)=>{
+   setusers(()=>users.filter((item,index)=>index !=id  ))
+}
+
+
+
 
   return (
-    <>
-      <Navbar songData ={songData}/>
-      <div className=" flex gap-8 flex-wrap">
-        {songData.map((obj, index) => {
-          return (
-            <Card
-              key={index}
-              index={index}
-              obj={obj}
-              handleClick={handleClick}
-            />
-          );
-        })}
+    <div className="w-full h-screen bg-zinc-200 flex items-center justify-center">
+    <div className="container mx-auto ">
+      <Cards handleRemove = {handleRemove} users={users}/>
+      <Form handleFormSubmit ={handleFormSubmit}/>  
       </div>
-    </>
+    </div>
   );
 };
 
